@@ -1,0 +1,29 @@
+---
+version: "3"
+services:
+  api:
+    build:
+      context: .
+      args:
+        API_VSN: ${API_VSN}
+        REGULAR_CHAMPIONSHIP_VSN: ${REGULAR_CHAMPIONSHIP_VSN}
+        PERIC_VSN: ${PERIC_VSN}
+      # environment:
+      #     API_VSN: ${API_VSN}
+      #     REGULAR_CHAMPIONSHIP_VSN: ${REGULAR_CHAMPIONSHIP_VSN}
+      #     PERIC_VSN: ${PERIC_VSN}
+    expose:
+      - "80"
+    command: "/opt/app/bin/start_server foreground"
+    networks:
+      - backend
+  proxy:
+    depends_on:
+      - api
+    build: ./haproxy
+    networks:
+      - backend
+    ports:
+      - "80:80"
+networks:
+  backend:

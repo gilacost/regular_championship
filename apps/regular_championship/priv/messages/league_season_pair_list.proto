@@ -1,0 +1,7 @@
+  message LeagueSeasonPairList {
+    repeated LeagueSeasonPair data = 1;
+  }
+  message LeagueSeasonPair  {
+    required string div = 1;
+    required uint32 season = 2;
+  }
