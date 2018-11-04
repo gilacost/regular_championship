@@ -1,12 +1,12 @@
-defmodule Api do
+defmodule ApiWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use Api, :controller
-      use Api, :view
+      use ApiWeb, :controller
+      use ApiWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,17 +19,18 @@ defmodule Api do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: Api
+      use Phoenix.Controller, namespace: ApiWeb
       import Plug.Conn
-      import Api.Router.Helpers
-      import Api.Gettext
+      import ApiWeb.Router.Helpers
+      import ApiWeb.Gettext
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/api/templates",
-                        namespace: Api
+      use Phoenix.View,
+        root: "lib/api/templates",
+        namespace: ApiWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
@@ -37,9 +38,9 @@ defmodule Api do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import Api.Router.Helpers
-      import Api.ErrorHelpers
-      import Api.Gettext
+      import ApiWeb.Router.Helpers
+      import ApiWeb.ErrorHelpers
+      import ApiWeb.Gettext
     end
   end
 
@@ -54,7 +55,7 @@ defmodule Api do
   def channel do
     quote do
       use Phoenix.Channel
-      import Api.Gettext
+      import ApiWeb.Gettext
     end
   end
 
