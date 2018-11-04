@@ -12,8 +12,12 @@ defmodule LaLiga.Application do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
-    Supervisor.start_link([
-      supervisor(LaLiga.Repo, []),
-    ], strategy: :one_for_one, name: LaLiga.Supervisor)
+    Supervisor.start_link(
+      [
+        supervisor(LaLiga.Repo, [], name: LaLiga.Repo)
+      ],
+      strategy: :one_for_one,
+      name: LaLiga.Supervisor
+    )
   end
 end
