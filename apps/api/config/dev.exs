@@ -13,6 +13,8 @@ config :api, Api.Endpoint,
   check_origin: false,
   watchers: []
 
+config :api, :generators, context_app: :api
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
@@ -39,5 +41,3 @@ config :api, Api.Endpoint,
       ~r{lib/api/templates/.*(eex)$}
     ]
   ]
-
-
