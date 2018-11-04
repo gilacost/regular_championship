@@ -14,10 +14,10 @@ defmodule RegularChampionship.Application do
 
     Supervisor.start_link(
       [
-        supervisor(RegularChampionship.Repo, [], name: LaLiga.Repo)
+        supervisor(RegularChampionship.Repo, [], name: RegularChampionship.Repo)
       ],
       strategy: :one_for_one,
-      name: LaLiga.Supervisor
+      name: RegularChampionship.Supervisor
     )
   end
 end
