@@ -2,16 +2,22 @@ defmodule LaLiga.Mixfile do
   use Mix.Project
 
   def project do
+    warnings_as_errors =
+      System.get_env()
+      |> Map.get("EX_WARNINGS_AS_ERRORS", "true")
+      |> Kernel.==("true")
+
     [
       app: :la_liga,
+      elixirc_options: [warnings_as_errors: warnings_as_errors],
       version: "0.0.1",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
       elixir: "~> 1.4",
-      elixirc_paths: elixirc_paths(Mix.env),
-      start_permanent: Mix.env == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
+      start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
     ]
