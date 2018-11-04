@@ -2,7 +2,13 @@ defmodule Api.Mixfile do
   use Mix.Project
 
   def project do
+    warnings_as_errors =
+      System.get_env()
+      |> Map.get("EX_WARNINGS_AS_ERRORS", "true")
+      |> Kernel.==("true")
+
     [
+      elixirc_options: [warnings_as_errors: warnings_as_errors],
       app: :api,
       version: "0.0.1",
       build_path: "../../_build",
