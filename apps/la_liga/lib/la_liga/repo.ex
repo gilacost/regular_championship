@@ -1,27 +1,18 @@
-defmodule Match do
-  defstruct [
-    :day,
-    :div,
-    :season,
-    :date,
-    :home_team,
-    :away_team,
-    :fthg,
-    :ftag,
-    :ftr,
-    :hthg,
-    :htag,
-    :htr
-  ]
-end
-
 defmodule LaLiga.Repo do
-  use GenServer
+  @moduledoc """
+  This is a supervised repo that loads in memory the csv file
+  to be accessed in a later stage.
+  """
 
-  @csv File.cwd!() |> Path.join(["priv/", "Data.csv"]) |> File.stream!()
+  use GenServer
+  alias LaLiga.Match
+
+  @csv File.cwd!()
+       |> Path.join(["priv/", "Data.csv"])
+       |> File.stream!()
 
   @doc """
-  GenServer that load csv data once.
+  Starts the genserver.
   """
   def start_link(_options \\ []) do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
@@ -29,6 +20,9 @@ defmodule LaLiga.Repo do
 
   # Callbacks
 
+  @doc """
+  Parses the stream with CSV and maps each row as MATCH struct.
+  """
   @impl true
   def init(_) do
     data =
@@ -56,15 +50,33 @@ defmodule LaLiga.Repo do
     {:ok, data}
   end
 
+  @doc """
+  Fetches the matches for a season and division.
+  """
   @impl true
-  def handle_call({:league_and_season, [division, season]}, _, data) do
-    season_and_leage =
+  def handle_call({:league_season_pair, [division, season]}, _, data) do
+    league_season_pair =
       data
       |> Enum.filter(fn
         %Match{div: d, season: s} -> d == division && s == season
         _ -> false
       end)
 
-    {:reply, season_and_leage, []}
+    {:reply, league_season_pair, data}
+  end
+
+  @doc """
+  Returns a list with all the unique values of season or division
+  """
+  @impl true
+  def handle_call({:single_values, column}, _, data) when column in [:div, :season] do
+    keys_list =
+      data
+      |> List.pop_at(0)
+      |> elem(1)
+      |> Enum.group_by(&Map.get(&1, column))
+      |> Map.keys()
+
+    {:reply, keys_list, data}
   end
 end
