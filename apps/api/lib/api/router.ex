@@ -15,13 +15,11 @@ defmodule ApiWeb.Router do
 
   scope "/", ApiWeb do
     # Use the default browser stack
-    pipe_through(:browser)
+    pipe_through([:browser, :api])
 
-    resources("/seasons", SeasonController, only: [:index])
+    get("/seasons", SeasonController, :index)
+
+    get("/leagues", LeagueController, :index)
+    get("/leagues/:league/seasons/:season", LeagueController, :league_season_pair)
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", Api do
-  #   pipe_through :api
-  # end
 end
