@@ -1,3 +1,3 @@
-# LaLiga
+# RegularChampionship
 
 **TODO: Add description**

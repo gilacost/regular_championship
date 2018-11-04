@@ -1,11 +1,11 @@
-defmodule LaLiga.Repo do
+defmodule RegularChampionship.Repo do
   @moduledoc """
   This is a supervised repo that loads in memory the csv file
   to be accessed in a later stage.
   """
 
   use GenServer
-  alias LaLiga.Match
+  alias RegularChampionship.Match
 
   @csv File.cwd!()
        |> Path.join(["priv/", "Data.csv"])

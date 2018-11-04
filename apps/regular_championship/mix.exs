@@ -1,15 +1,9 @@
-defmodule LaLiga.Mixfile do
+defmodule RegularChampionship.Mixfile do
   use Mix.Project
 
   def project do
-    warnings_as_errors =
-      System.get_env()
-      |> Map.get("EX_WARNINGS_AS_ERRORS", "true")
-      |> Kernel.==("true")
-
     [
-      app: :la_liga,
-      elixirc_options: [warnings_as_errors: warnings_as_errors],
+      app: :regular_championship,
       version: "0.0.1",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
@@ -28,7 +22,7 @@ defmodule LaLiga.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {LaLiga.Application, []},
+      mod: {RegularChampionship.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
