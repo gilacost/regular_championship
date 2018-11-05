@@ -43,10 +43,10 @@ defmodule Api.Results do
   ## Examples
 
 
-      iex> league_season_pair!!("regional","198788")
+      iex> league_season_pair("regional","198788", :json)
       []
 
   """
-  def league_season_pair!(division, season),
+  def league_season_pair(division, season),
     do: GenServer.call(Repo, {:league_season_pair, [division, season]})
 end

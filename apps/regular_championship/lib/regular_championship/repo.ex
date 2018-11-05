@@ -12,29 +12,29 @@ defmodule RegularChampionship.Repo do
        |> File.stream!()
 
   @doc """
-  # Starts the genserver.
+  Starts a RegularChampionship genserver process linked to the current process.
 
-  # ## Parameters
+  This is used to start this Genserver as part of a supervision tree.
 
-  #   - name: String that represents the name of the person.
+  Once the server is started, the `init/1` function of the given module is called with args as its arguments to initialize the server. To ensure a synchronized start-up procedure, this function does not return until `init/1` has returned.
 
-  # ## Examples
+  ## Examples
+      iex(1)> RegularChampionship.Repo.start_link
+      {:error, {:already_started, ...}}
 
-  #     iex> Greeter.hello("Sean")
-  #     "Hello, Sean"
-
-  #     iex> Greeter.hello("pete")
-  #     "Hello, pete"
+      iex(1)> RegularChampionship.Repo.start_link
+      {:error, {:already_started, ...}}
 
   """
-  def start_link(options \\ []) do
-    GenServer.start_link(__MODULE__, options, name: __MODULE__)
+  def start_link() do
+    GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
   @doc """
   Parses the stream with CSV and maps each row as MATCH struct
   and ProtoMatch Message.
   """
+
   @impl true
   def init(_) do
     struct_list =

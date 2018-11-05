@@ -1,4 +1,3 @@
 ExUnit.start()
 
-Ecto.Adapters.SQL.Sandbox.mode(RegularChampionship.Repo, :manual)
-
+{:error, {:already_started, _pid}} = RegularChampionship.Repo.start_link()

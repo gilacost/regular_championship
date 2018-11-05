@@ -1,4 +1,4 @@
-defmodule ApiWeb.ResultView do
+defmodule ApiWeb.LeagueSeasonView do
   use ApiWeb, :view
   alias ApiWeb.ResultView
 

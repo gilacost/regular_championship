@@ -29,7 +29,7 @@ defmodule RegularChampionship.Mixfile do
   def application do
     [
       mod: {RegularChampionship.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :exprotobuf]
     ]
   end
 
@@ -42,7 +42,8 @@ defmodule RegularChampionship.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:csv, "~> 2.0.0"}
+      {:csv, "~> 2.0.0"},
+      {:exprotobuf, "~> 1.2.9"}
     ]
   end
 
@@ -54,9 +55,6 @@ defmodule RegularChampionship.Mixfile do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

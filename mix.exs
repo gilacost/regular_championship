@@ -15,6 +15,10 @@ defmodule Derivco.MixProject do
   #
   # Run "mix help deps" for examples and options.
   defp deps do
-    []
+    [
+      # {:distillery, "~> 1.0", runtime: false},
+      # {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false},
+      # {:excoveralls, "~> 0.9.1", only: :test}
+    ]
   end
 end

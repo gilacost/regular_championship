@@ -40,7 +40,6 @@ defmodule ApiWeb do
 
       import ApiWeb.Router.Helpers
       import ApiWeb.ErrorHelpers
-      import ApiWeb.Gettext
     end
   end
 
@@ -49,13 +48,6 @@ defmodule ApiWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
-    end
-  end
-
-  def channel do
-    quote do
-      use Phoenix.Channel
-      import ApiWeb.Gettext
     end
   end
 

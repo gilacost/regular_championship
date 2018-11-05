@@ -1,4 +1,4 @@
-defmodule Api.ConnCase do
+defmodule ApiWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,16 +19,14 @@ defmodule Api.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      import Api.Router.Helpers
+      import ApiWeb.Router.Helpers
 
       # The default endpoint for testing
       @endpoint Api.Endpoint
     end
   end
 
-
   setup _tags do
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
-
 end
