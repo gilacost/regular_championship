@@ -5,78 +5,78 @@ defmodule RegularChampionship.Repo do
   """
 
   use GenServer
-  alias RegularChampionship.Match
+  alias RegularChampionship.Result
 
   @csv File.cwd!()
        |> Path.join(["priv/", "Data.csv"])
        |> File.stream!()
 
   @doc """
-  Starts the genserver.
+  # Starts the genserver.
+
+  # ## Parameters
+
+  #   - name: String that represents the name of the person.
+
+  # ## Examples
+
+  #     iex> Greeter.hello("Sean")
+  #     "Hello, Sean"
+
+  #     iex> Greeter.hello("pete")
+  #     "Hello, pete"
+
   """
-  def start_link(_options \\ []) do
-    GenServer.start_link(__MODULE__, [], name: __MODULE__)
+  def start_link(options \\ []) do
+    GenServer.start_link(__MODULE__, options, name: __MODULE__)
   end
 
-  # Callbacks
-
   @doc """
-  Parses the stream with CSV and maps each row as MATCH struct.
+  Parses the stream with CSV and maps each row as MATCH struct
+  and ProtoMatch Message.
   """
   @impl true
   def init(_) do
-    data =
+    struct_list =
       @csv
       |> CSV.decode()
-      |> Enum.map(fn
-        {:ok, [day, div, season, date, home_team, away_team, fthg, ftag, ftr, hthg, htag, htr]} ->
-          struct!(Match,
-            day: day,
-            div: div,
-            season: season,
-            date: date,
-            home_team: home_team,
-            away_team: away_team,
-            fthg: fthg,
-            ftag: ftag,
-            ftr: ftr,
-            hthg: hthg,
-            htag: htag,
-            htr: htr
-          )
-      end)
+      |> Enum.map(&Result.build_struct!(&1))
       |> Enum.into([])
 
-    {:ok, data}
+    {:ok, struct_list}
   end
 
   @doc """
-  Fetches the matches for a season and division.
+  Fetches the match list for a season and division and generates a list of structs
+  that will be used to print the json output.
   """
   @impl true
-  def handle_call({:league_season_pair, [division, season]}, _, data) do
+  def handle_call({:league_season_pair, [division, season]}, _, struct_list) do
     league_season_pair =
-      data
-      |> Enum.filter(fn
-        %Match{div: d, season: s} -> d == division && s == season
-        _ -> false
+      Enum.filter(struct_list, fn
+        %Result{div: d, season: s} ->
+          d == division && "#{s}" == season
+
+        _ ->
+          false
       end)
 
-    {:reply, league_season_pair, data}
+    {:reply, league_season_pair, struct_list}
   end
 
   @doc """
   Returns a list with all the unique values of season or division
   """
   @impl true
-  def handle_call({:single_values, column}, _, data) when column in [:div, :season] do
+  def handle_call({:single_values, column}, _, struct_list)
+      when column in [:div, :season] do
     keys_list =
-      data
+      struct_list
       |> List.pop_at(0)
       |> elem(1)
       |> Enum.group_by(&Map.get(&1, column))
       |> Map.keys()
 
-    {:reply, keys_list, data}
+    {:reply, keys_list, struct_list}
   end
 end
