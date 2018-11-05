@@ -7,6 +7,7 @@ defmodule ApiWeb.LeagueSeasonController do
 
   def index(conn, %{"league" => league, "season" => season}) do
     results = Results.league_season_pair(league, season)
+
     render(conn, "results.json", results: results)
   end
 end
