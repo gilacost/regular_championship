@@ -1,61 +1,35 @@
-defmodule Api.Mixfile do
+defmodule Api.MixProject do
   use Mix.Project
 
   def project do
-    warnings_as_errors =
-      System.get_env()
-      |> Map.get("EX_WARNINGS_AS_ERRORS", "true")
-      |> Kernel.==("true")
-
     [
-      elixirc_options: [warnings_as_errors: warnings_as_errors],
       app: :api,
-      version: "0.0.1",
+      version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "~> 1.4",
-      elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
-      aliases: aliases(),
       deps: deps()
     ]
   end
 
-  # Configuration for the OTP application.
-  #
-  # Type `mix help compile.app` for more information.
+  # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      mod: {Api.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :cowboy, :plug, :plug_cowboy],
+      mod: {Api.Application, []}
     ]
   end
 
-  # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_), do: ["lib"]
-
-  # Specifies your project dependencies.
-  #
-  # Type `mix help deps` for examples and options.
+  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:phoenix, "~> 1.3.4"},
-      {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_html, "~> 2.10"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:gettext, "~> 0.11"},
-      {:plug_cowboy, "~> 1.0"}
+      {:poison, "~> 3.0"},
+      {:plug_cowboy, "~> 2.0"},
+      {:cowboy, "~> 2.5"},
+      {:plug, "~> 1.7"}
     ]
-  end
-
-  # Aliases are shortcuts or tasks specific to the current project.
-  #
-  # See the documentation for `Mix` for more info on aliases.
-  defp aliases do
-    []
   end
 end
