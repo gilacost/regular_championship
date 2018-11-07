@@ -7,6 +7,7 @@ defmodule RegularChampionship.Repo do
   use GenServer
   alias RegularChampionship.Result
 
+  # todo destillery drama
   @csv File.cwd!()
        |> Path.join(["priv/", "Data.csv"])
        |> File.stream!()
@@ -65,7 +66,7 @@ defmodule RegularChampionship.Repo do
 
   @spec results(division(), season()) :: list(match())
   def results(division, season) do
-    GenServer.call(__MODULE__, {:results, [division, season]})
+    GenServer.call(__MODULE__, {:results, division, season})
   end
 
   @doc """
@@ -84,16 +85,16 @@ defmodule RegularChampionship.Repo do
         ["D1", 201617]
       ]
   """
-  @spec league_season_pairs() :: list(list(string))
+  @spec league_season_pairs() :: list(list(String.t()))
   def league_season_pairs() do
-    GenServer.call(__MODULE__, {:league_season_pair})
+    GenServer.call(__MODULE__, :league_season_pair)
   end
 
   # Server(callbacks)
 
   @doc false
   @impl true
-  def handle_call({:results, [division, season]}, _, struct_list) do
+  def handle_call({:results, division, season}, _, struct_list) do
     league_season_pair =
       Enum.filter(struct_list, fn
         %Result{div: d, season: s} ->
@@ -106,13 +107,14 @@ defmodule RegularChampionship.Repo do
     {:reply, league_season_pair, struct_list}
   end
 
+  @doc false
   @impl true
-  def handle_call({:league_season_pair}, _, struct_list) do
+  def handle_call(:league_season_pair, _, struct_list) do
     keys_list =
       struct_list
       |> List.pop_at(0)
       |> elem(1)
-      |> Enum.map(&[&1.div, "#{&1.season}"])
+      |> Enum.map(&[&1.div, &1.season])
       |> Enum.uniq()
 
     {:reply, keys_list, struct_list}
