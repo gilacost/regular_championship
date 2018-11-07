@@ -1,6 +1,7 @@
 defmodule RegularChampionship.Result do
   @moduledoc """
-  This struct defines the columns that will be parsed from the CSV
+  This struct defines the columns that will be parsed from each of the CSV
+  rows
   """
   defstruct [
     :id,
@@ -20,7 +21,8 @@ defmodule RegularChampionship.Result do
   def build_struct!(
         {:ok, [id, div, season, date, home_team, away_team, fthg, ftag, ftr, hthg, htag, htr]}
       ) do
-    struct!(__MODULE__,
+    struct!(
+      __MODULE__,
       id: parse_int(id),
       div: div,
       season: parse_int(season),

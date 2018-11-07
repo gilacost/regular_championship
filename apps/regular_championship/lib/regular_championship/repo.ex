@@ -5,9 +5,9 @@ defmodule RegularChampionship.Repo do
   """
 
   use GenServer
-  alias RegularChampionship.Result
+  alias RegularChampionship.{Result, ResultList, LeagueSeasonPair, LeagueSeasonPairList}
 
-  # todo destillery drama
+  # TODO destillery drama
   @csv File.cwd!()
        |> Path.join(["priv/", "Data.csv"])
        |> File.stream!()
@@ -43,7 +43,7 @@ defmodule RegularChampionship.Repo do
   Match structs.
 
   ## Example
-      iex> RegularChampionship.Repo.results("SP1", "201617") |> List.first()
+      iex> RegularChampionship.Repo.results("SP1", "201617") |> Map.get(:data)|> List.first()
       %RegularChampionship.Result{
         away_team: "Eibar",
         date: "19/08/2016",
@@ -75,18 +75,20 @@ defmodule RegularChampionship.Repo do
   ## Example
 
       iex> RegularChampionship.Repo.league_season_pairs()
-      [
-        ["SP1", 201617],
-        ["SP1", 201516],
-        ["SP2", 201617],
-        ["SP2", 201516],
-        ["E0", 201617],
-        ["D1", 201617]
-      ]
+      %RegularChampionship.LeagueSeasonPairList{
+        data: [
+          %RegularChampionship.LeagueSeasonPair{div: "SP1", season: 201617},
+          %RegularChampionship.LeagueSeasonPair{div: "SP1", season: 201516},
+          %RegularChampionship.LeagueSeasonPair{div: "SP2", season: 201617},
+          %RegularChampionship.LeagueSeasonPair{div: "SP2", season: 201516},
+          %RegularChampionship.LeagueSeasonPair{div: "E0", season: 201617},
+          %RegularChampionship.LeagueSeasonPair{div: "D1", season: 201617}
+        ]
+      }
   """
   @spec league_season_pairs() :: list(list(String.t()))
   def league_season_pairs() do
-    GenServer.call(__MODULE__, :league_season_pair)
+    GenServer.call(__MODULE__, :league_season_pairs)
   end
 
   # Server(callbacks)
@@ -103,19 +105,24 @@ defmodule RegularChampionship.Repo do
           false
       end)
 
-    {:reply, league_season_pair, struct_list}
+    result_list = ResultList.build_struct!(league_season_pair)
+
+    {:reply, result_list, struct_list}
   end
 
   @doc false
   @impl true
-  def handle_call(:league_season_pair, _, struct_list) do
-    keys_list =
+  def handle_call(:league_season_pairs, _, struct_list) do
+    league_season_pairs =
       struct_list
       |> List.pop_at(0)
       |> elem(1)
       |> Enum.map(&[&1.div, &1.season])
       |> Enum.uniq()
+      |> Enum.map(&LeagueSeasonPair.build_struct!(&1))
 
-    {:reply, keys_list, struct_list}
+    league_season_pairs_list = LeagueSeasonPairList.build_struct!(league_season_pairs)
+
+    {:reply, league_season_pairs_list, struct_list}
   end
 end

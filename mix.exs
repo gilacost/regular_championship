@@ -17,6 +17,7 @@ defmodule Derivco.MixProject do
   # Run "mix help deps" for examples and options.
   defp deps do
     [
+      {:poison, "~> 3.0"},
       {:pre_commit, "~> 0.3.4", only: [:dev]},
       # {:distillery, "~> 1.0", runtime: false},
       {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false}
