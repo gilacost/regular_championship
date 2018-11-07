@@ -56,6 +56,7 @@ defmodule RegularChampionship.Repo do
         hthg: 0,
         htr: "D",
         id: 1,
+        season: 201617
       }
   """
   @type division() :: String.t()
