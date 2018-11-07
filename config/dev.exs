@@ -1,5 +1,5 @@
 use Mix.Config
 
 config :pre_commit,
-  commands: ["test", "format", "dialyzer"],
+  commands: ["test"],
   verbose: true
