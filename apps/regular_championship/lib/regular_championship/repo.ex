@@ -24,8 +24,7 @@ defmodule RegularChampionship.Repo do
   end
 
   @doc """
-  Parses the stream with CSV and maps each row as MATCH struct
-  and ProtoMatch Message.
+  Parses the stream with CSV and maps each row as Result struct.
   """
   @impl true
   def init(_) do
@@ -44,7 +43,7 @@ defmodule RegularChampionship.Repo do
   Match structs.
 
   ## Example
-      iex> RegularChampionship.Repo.results(["SP1", "201617"]) |> List.first()
+      iex> RegularChampionship.Repo.results("SP1", "201617") |> List.first()
       %RegularChampionship.Result{
         away_team: "Eibar",
         date: "19/08/2016",
