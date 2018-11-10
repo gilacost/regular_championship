@@ -14,7 +14,7 @@ source_env: ## ources reqired ENV to build the image with the release
 
 build: ## builds the image containing the release
 		make source_env
-	  docker-compose build 
+	  docker-compose build --no-cache
 
 up: ## runs n containers, run it like make INSTANCES=n to instantiate n api containers 
 		make source_env
