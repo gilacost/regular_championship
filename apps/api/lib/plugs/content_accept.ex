@@ -13,7 +13,7 @@ defmodule Api.Plug.ContentAccept do
           {:ok,
            [
              {ip, _, _},
-             {_, :undefined, _}
+             {_, _, _}
            ]}
         ),
         do: inspect(ip)
