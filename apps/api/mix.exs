@@ -3,8 +3,8 @@ defmodule Api.MixProject do
 
   def project do
     [
+      version: System.get_env("API_VSN"),
       app: :api,
-      version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
@@ -26,6 +26,7 @@ defmodule Api.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:poison, "~> 3.0"},
       {:plug_cowboy, "~> 2.0"},
       {:cowboy, "~> 2.5"},
       {:plug, "~> 1.7"}

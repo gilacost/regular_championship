@@ -8,14 +8,14 @@ defmodule RegularChampionship.Mixfile do
       |> Kernel.==("true")
 
     [
+      version: System.get_env("REGULAR_CHAMPIONSHIP_VSN"),
       elixirc_options: [warnings_as_errors: warnings_as_errors],
       app: :regular_championship,
-      version: "0.0.1",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "~> 1.4",
+      elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -43,7 +43,8 @@ defmodule RegularChampionship.Mixfile do
   defp deps do
     [
       {:csv, "~> 2.0.0"},
-      {:exprotobuf, "~> 1.2.9"}
+      {:exprotobuf, "~> 1.2.9"},
+      {:poison, "~> 3.0"}
     ]
   end
 
@@ -54,7 +55,6 @@ defmodule RegularChampionship.Mixfile do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    [
-    ]
+    []
   end
 end

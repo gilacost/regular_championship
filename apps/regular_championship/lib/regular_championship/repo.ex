@@ -7,18 +7,9 @@ defmodule RegularChampionship.Repo do
   use GenServer
   alias RegularChampionship.{Result, ResultList, LeagueSeasonPair, LeagueSeasonPairList}
 
-  # TODO destillery drama
-  @csv File.cwd!()
-       |> Path.join(["priv/", "Data.csv"])
-       |> File.stream!()
+  @csv Application.get_env(:regular_championship, :csv) |> File.stream!()
 
-  @doc """
-  Starts a RegularChampionship genserver process linked to the current process.
-
-  This is used to start this Genserver as part of a supervision tree.
-
-  Once the server is started, the `init/1` function of the given module is called with args as its arguments to initialize the server. To ensure a synchronized start-up procedure, this function does not return until `init/1` has returned.
-  """
+  @doc false
   def start_link() do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end

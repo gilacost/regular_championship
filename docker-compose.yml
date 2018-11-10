@@ -1,0 +1,15 @@
+---
+version: '3'
+services:
+    api:
+        build:
+            context: .
+            args:
+                API_VSN: ${API_VSN}
+                REGULAR_CHAMPIONSHIP_VSN: ${REGULAR_CHAMPIONSHIP_VSN}
+        ports:
+            - "4001:4001"
+        networks:
+            - backend
+networks:
+    backend:
