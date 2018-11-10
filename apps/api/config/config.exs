@@ -3,7 +3,7 @@ use Mix.Config
 config :logger, backends: [{LoggerFileBackend, :info}]
 
 config :logger, :info,
-  path: "/var/log/info.log",
+  path: Path.expand("../log/info.log", __DIR__),
   level: :info
 
 import_config "#{Mix.env()}.exs"

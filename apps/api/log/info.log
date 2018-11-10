@@ -1,0 +1,31 @@
+22:40:32.589 [info] Application api exited: Api.Application.start(:normal, []) returned an error: shutdown: failed to start child: {:ranch_listener_sup, Api.Router.HTTP}
+    ** (EXIT) shutdown: failed to start child: :ranch_acceptors_sup
+        ** (EXIT) :badarg
+22:41:59.965 [info] Request served by node with ip {192, 168, 1, 131}
+22:42:00.020 [error] #PID<0.382.0> running Api.Router (connection #PID<0.380.0>, stream id 1) terminated
+Server: localhost:8080 (http)
+Request: GET /
+** (exit) an exception was raised:
+    ** (MatchError) no match of right hand side value: []
+        (api) lib/plugs/content_accept.ex:27: Api.Plug.ContentAccept.call/2
+        (api) lib/api/router.ex:1: Api.Router.plug_builder_call/2
+        (api) lib/plug/debugger.ex:122: Api.Router.call/2
+        (plug_cowboy) lib/plug/cowboy/handler.ex:12: Plug.Cowboy.Handler.init/2
+        (cowboy) /Users/tboe/Repos/derivco/deps/cowboy/src/cowboy_handler.erl:41: :cowboy_handler.execute/2
+        (cowboy) /Users/tboe/Repos/derivco/deps/cowboy/src/cowboy_stream_h.erl:293: :cowboy_stream_h.execute/3
+        (cowboy) /Users/tboe/Repos/derivco/deps/cowboy/src/cowboy_stream_h.erl:271: :cowboy_stream_h.request_process/3
+        (stdlib) proc_lib.erl:247: :proc_lib.init_p_do_apply/3
+22:42:00.625 [info] Request served by node with ip {192, 168, 1, 131}
+22:42:00.648 [error] #PID<0.384.0> running Api.Router (connection #PID<0.380.0>, stream id 2) terminated
+Server: localhost:8080 (http)
+Request: GET /favicon.ico
+** (exit) an exception was raised:
+    ** (MatchError) no match of right hand side value: []
+        (api) lib/plugs/content_accept.ex:27: Api.Plug.ContentAccept.call/2
+        (api) lib/api/router.ex:1: Api.Router.plug_builder_call/2
+        (api) lib/plug/debugger.ex:122: Api.Router.call/2
+        (plug_cowboy) lib/plug/cowboy/handler.ex:12: Plug.Cowboy.Handler.init/2
+        (cowboy) /Users/tboe/Repos/derivco/deps/cowboy/src/cowboy_handler.erl:41: :cowboy_handler.execute/2
+        (cowboy) /Users/tboe/Repos/derivco/deps/cowboy/src/cowboy_stream_h.erl:293: :cowboy_stream_h.execute/3
+        (cowboy) /Users/tboe/Repos/derivco/deps/cowboy/src/cowboy_stream_h.erl:271: :cowboy_stream_h.request_process/3
+        (stdlib) proc_lib.erl:247: :proc_lib.init_p_do_apply/3
