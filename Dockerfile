@@ -19,9 +19,9 @@ FROM alpine:latest
 ARG API_VSN
 RUN env
 RUN apk update && apk --no-cache --update add bash openssl-dev
+RUN  mkdir /opt/app/lib/api-$API_VSN/log \
+    && touch /opt/app/lib/api-$API_VSN/log/info.log \
+RUN ln -sf /dev/stdout /opt/app/lib/api-$API_VSN/log/info.log
 ENV PORT=80 MIX_ENV=prod REPLACE_OS_VARS=true
 WORKDIR /opt/app
 COPY --from=builder /opt/release .
-RUN  mkdir /opt/app/lib/api-$API_VSN/log/ \
-    && mv /opt/app/lib/api-$API_VSN/log/info.log \
-RUN ln -sf /dev/stdout /opt/app/lib/api-$API_VSN/log/info.log
