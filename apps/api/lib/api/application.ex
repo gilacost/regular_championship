@@ -8,7 +8,11 @@ defmodule Api.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      Plug.Cowboy.child_spec(scheme: :http, plug: Api.Router, options: [port: 4001])
+      Plug.Cowboy.child_spec(
+        scheme: :http,
+        plug: Api.Router,
+        options: [port: Application.get_env(:api, :port)]
+      )
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

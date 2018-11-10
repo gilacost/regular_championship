@@ -17,8 +17,7 @@ RUN mix release --env=prod --verbose \
 
 FROM alpine:latest
 RUN apk update && apk --no-cache --update add bash openssl-dev
+RUN ln -sf /dev/stdout /var/log/info.log
 ENV PORT=80 MIX_ENV=prod REPLACE_OS_VARS=true
 WORKDIR /opt/app
-EXPOSE ${PORT}
 COPY --from=builder /opt/release .
-CMD ["/opt/app/bin/start_server", "foreground"]

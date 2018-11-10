@@ -29,7 +29,8 @@ defmodule Api.MixProject do
       {:poison, "~> 3.0"},
       {:plug_cowboy, "~> 2.0"},
       {:cowboy, "~> 2.5"},
-      {:plug, "~> 1.7"}
+      {:plug, "~> 1.7"},
+      {:logger_file_backend, "~> 0.0.10"}
     ]
   end
 end
