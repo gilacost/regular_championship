@@ -17,8 +17,9 @@ RUN mix release --env=prod --verbose \
 
 FROM alpine:latest
 RUN apk update && apk --no-cache --update add bash openssl-dev
-RUN touch /opt/app/lib/api-${API_VSN}/log/info.log
-RUN ln -sf /dev/stdout /opt/app/lib/api-${API_VSN}/log/info.log
+ENV API_VSN=$API_VSN
+RUN touch "/opt/app/lib/api-${API_VSN}/log/info.log"
+RUN ln -sf "/dev/stdout /opt/app/lib/api-${API_VSN}/log/info.log"
 ENV PORT=80 MIX_ENV=prod REPLACE_OS_VARS=true
 WORKDIR /opt/app
 COPY --from=builder /opt/release .
