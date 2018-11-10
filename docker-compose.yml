@@ -11,5 +11,9 @@ services:
             - "4001:4001"
         networks:
             - backend
+    proxy:
+        build: ./haproxy
+        networks:
+            - backend
 networks:
     backend:

@@ -17,3 +17,6 @@ build: ## builds the image containing the release
 up: ## runs the container 
 		make source_env
 	  docker-compose up
+
+conf: ## shows docker-compose config 
+	  docker-compose config
