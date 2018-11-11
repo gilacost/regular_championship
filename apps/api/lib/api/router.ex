@@ -14,7 +14,7 @@ defmodule Api.Router do
     Controller.league_season(conn)
   end
 
-  get "/leagues/:league/seasons/:season" do
+  get "/league/:league/season/:season" do
     Controller.results(conn)
   end
 

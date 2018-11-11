@@ -1,5 +1,6 @@
 defmodule Api.Plug.EncodeSend do
   alias Api.{Protobuf, Json, Plug.ContentAccept}
+  alias Plug.Conn.Status
   import Plug.Conn, only: [put_resp_content_type: 2, send_resp: 3]
 
   def init(options), do: options
@@ -8,9 +9,9 @@ defmodule Api.Plug.EncodeSend do
         %Plug.Conn{
           assigns: %{
             content_type: content_type,
-            resp_data: resp_data,
-            resp_code: resp_code
-          }
+            resp_data: resp_data
+          },
+          status: resp_code
         } = conn,
         _opts
       ) do
@@ -26,7 +27,10 @@ defmodule Api.Plug.EncodeSend do
 
     conn
     |> put_resp_content_type("text/plain")
-    |> send_resp(406, "invalid conten-type: #{content_type}\nACCEPTS: #{accepts}")
+    |> send_resp(
+      Status.code(:not_acceptable),
+      "invalid conten-type: #{content_type}\nACCEPTS: #{accepts}"
+    )
   end
 
   defp format_output("application/json", data), do: Json.encode(data)

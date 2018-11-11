@@ -1,12 +1,23 @@
 defmodule Derivco.MixProject do
   use Mix.Project
 
+  # source_url: "https://github.com/USER/PROJECT",
+  # homepage_url: "http://YOUR_PROJECT_HOMEPAGE",
   def project do
     [
+      app: :derivco,
       apps_path: "apps",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      dialyzer: [plt_add_deps: :transitive]
+      dialyzer: [plt_add_deps: :transitive],
+      version: "0.1.0",
+      name: "Derivco",
+      docs: [
+        # The main page in the docs
+        main: "Api.Controller",
+        logo: "logo.png",
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -19,8 +30,8 @@ defmodule Derivco.MixProject do
     [
       {:pre_commit, "~> 0.3.4", only: [:dev]},
       {:distillery, "~> 1.0", runtime: false},
-      {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false}
-      # {:excoveralls, "~> 0.9.1", only: :test}
+      {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false},
+      {:ex_doc, "~> 0.18.0", only: [:dev], runtime: false}
     ]
   end
 end

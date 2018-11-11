@@ -15,7 +15,7 @@ defmodule RegularChampionship.Repo do
   end
 
   @doc """
-  Parses the stream with CSV and maps each row as Result struct.
+  Parses the stream with `CSV` module and maps each row as Result struct.
   """
   @impl true
   def init(_) do
