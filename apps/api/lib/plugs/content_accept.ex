@@ -33,5 +33,5 @@ defmodule Api.Plug.ContentAccept do
     end
   end
 
-  def content_accepted_list(), do: @accepted_content_types
+  def list(), do: @accepted_content_types
 end

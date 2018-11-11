@@ -40,3 +40,7 @@ Request: GET /favicon.ico
             (elixir) lib/stream.ex:1527: Enumerable.Stream.do_each/4
             (elixir) lib/stream.ex:844: Stream.do_transform/5
             (elixir) lib/stream.ex:1527: Enumerable.Stream.do_each/4
+03:54:23.598 [info] Request served by node with ip {192, 168, 1, 131}
+03:55:08.432 [info] Request served by node with ip {192, 168, 1, 131}
+03:55:13.522 [info] Request served by node with ip {192, 168, 1, 131}
+03:55:38.217 [info] Request served by node with ip {192, 168, 1, 131}

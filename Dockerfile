@@ -17,6 +17,7 @@ RUN mix release --env=prod --verbose \
 
 FROM alpine:latest
 ARG API_VSN
+RUN set -x
 RUN env
 RUN apk update && apk --no-cache --update add bash openssl-dev
 RUN  mkdir -p /opt/app/lib/api-$API_VSN/log/ \

@@ -3,7 +3,7 @@
 # thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
 SHELL := /bin/bash
-INSTANCES = 1 # 1 instance by default
+INSTANCES = 2 # 2 instance by default
 CFLAGS = -c -g -D $(INSTANCES)
 
 help: ## This help.
