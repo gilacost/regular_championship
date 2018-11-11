@@ -17,7 +17,7 @@ defmodule Api.Controller do
 
   Returns `%Conn{}`.
   """
-  @spec league_season(%Plug.Conn{}) :: %Plug.Conn{}
+  @spec league_season(%{}) :: struct()
   def league_season(%Conn{} = conn) do
     response_data = Repo.league_season_pairs()
     respond_ok(conn, response_data)
@@ -30,10 +30,12 @@ defmodule Api.Controller do
 
   Returns `%Conn{}`.
   """
-  @type params() :: %{required(String.t()) => String.t(), required(String.t()) => String.t()}
-  @type results_request() :: %Plug.Conn{params: params()}
+  @type params_for_results() :: %{
+          required(String.t()) => String.t(),
+          required(String.t()) => String.t()
+        }
 
-  @spec results(results_request()) :: %Plug.Conn{}
+  @spec results(params_for_results()) :: struct()
   def results(%Conn{params: %{"league" => league, "season" => season}} = conn) do
     league
     |> Repo.results(season)
@@ -53,13 +55,14 @@ defmodule Api.Controller do
   Returns `%Conn{}`.
   """
 
-  @spec respond_not_found(%Conn{}, String.t()) :: %Conn{}
+  @spec respond_not_found(%{}, String.t()) :: struct()
   def respond_not_found(conn, message) do
     conn
     |> put_status(Status.code(:not_found))
     |> assign(:resp_data, %NotFound{message: message})
   end
 
+  @spec respond_not_found(%{}, struct()) :: struct()
   defp respond_ok(conn, resp_data) do
     conn
     |> put_status(Status.code(:ok))
