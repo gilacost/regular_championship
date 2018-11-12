@@ -1,3 +1,5 @@
 use Mix.Config
 
-config :api, port: 80
+config :api,
+  port: 80,
+  env: :prod

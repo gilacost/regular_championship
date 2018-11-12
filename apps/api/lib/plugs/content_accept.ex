@@ -12,16 +12,11 @@ defmodule Api.Plug.ContentAccept do
     "application/protobuf"
   ]
 
-  @doc """
-  Logs the node ip.
-  """
-  def init(options) do
-    ip = get_ip(:inet.getif())
-    Logger.info("Request served by node with ip #{ip}")
-    options
-  end
+  def init(options), do: options
 
   @doc """
+
+  Logs the node ip.
   if the content-type header sent is in `@accepted_content_types` assigns a
   :valid_content_type, if not assigns an :invalid_content_type.
 
@@ -29,7 +24,12 @@ defmodule Api.Plug.ContentAccept do
   """
 
   def call(%Plug.Conn{} = conn, _opts) do
-    [content_type] = get_req_header(conn, "accept-language")
+    if Application.get_env(:api, :env) == :prod do
+      ip = get_ip(:inet.getif())
+      Logger.info("Request served by node with ip #{ip}")
+    end
+
+    [content_type] = get_req_header(conn, "content-type")
 
     if content_type in @accepted_content_types do
       assign(conn, :content_type, content_type)
