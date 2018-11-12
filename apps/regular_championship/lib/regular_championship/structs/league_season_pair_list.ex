@@ -4,7 +4,7 @@ defmodule RegularChampionship.LeagueSeasonPairList do
   """
   defstruct [:data]
 
-  def build_struct!(league_season_pair_list) do
+  def build!(league_season_pair_list) do
     struct!(
       __MODULE__,
       data: league_season_pair_list

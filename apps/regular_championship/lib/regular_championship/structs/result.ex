@@ -1,7 +1,7 @@
 defmodule RegularChampionship.Result do
   @moduledoc """
   This struct defines the columns that will be parsed from each of the CSV
-  rows
+  rows.
   """
   defstruct [
     :id,
@@ -18,7 +18,7 @@ defmodule RegularChampionship.Result do
     :htr
   ]
 
-  def build_struct!(
+  def build!(
         {:ok, [id, div, season, date, home_team, away_team, fthg, ftag, ftr, hthg, htag, htr]}
       ) do
     struct!(
@@ -38,7 +38,7 @@ defmodule RegularChampionship.Result do
     )
   end
 
-  def build_struct!({:error, message}), do: raise(message)
+  def build!({:error, message}), do: raise(message)
 
   defp parse_int(binary) do
     binary

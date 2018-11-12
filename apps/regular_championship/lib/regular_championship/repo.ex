@@ -22,7 +22,7 @@ defmodule RegularChampionship.Repo do
     struct_list =
       @csv
       |> CSV.decode()
-      |> Enum.map(&Result.build_struct!(&1))
+      |> Enum.map(&Result.build!(&1))
       |> Enum.into([])
 
     {:ok, struct_list}
@@ -96,7 +96,7 @@ defmodule RegularChampionship.Repo do
           false
       end)
 
-    result_list = ResultList.build_struct!(league_season_pair)
+    result_list = ResultList.build!(league_season_pair)
 
     {:reply, result_list, struct_list}
   end
@@ -110,9 +110,9 @@ defmodule RegularChampionship.Repo do
       |> elem(1)
       |> Enum.map(&[&1.div, &1.season])
       |> Enum.uniq()
-      |> Enum.map(&LeagueSeasonPair.build_struct!(&1))
+      |> Enum.map(&LeagueSeasonPair.build!(&1))
 
-    league_season_pairs_list = LeagueSeasonPairList.build_struct!(league_season_pairs)
+    league_season_pairs_list = LeagueSeasonPairList.build!(league_season_pairs)
 
     {:reply, league_season_pairs_list, struct_list}
   end

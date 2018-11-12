@@ -2,6 +2,7 @@ alias RegularChampionship.LeagueSeasonPairList
 alias RegularChampionship.Messages.LeagueSeasonPairList, as: LeagueSeasonPairListProto
 alias RegularChampionship.Messages.LeagueSeasonPair, as: LeagueSeasonPairProto
 
+# implements specific encoding for a LeagueSeasonPairList struct
 defimpl Api.Protobuf, for: LeagueSeasonPairList do
   def encode(%LeagueSeasonPairList{data: data}) do
     season_pair_list =

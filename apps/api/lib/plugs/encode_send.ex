@@ -49,7 +49,8 @@ defmodule Api.Plug.EncodeSend do
     )
   end
 
-  # Encodes into jason or protobuf
+  # Encodes into json or protobuf
+  @spec format_output(String.t(), struct()) :: String.t() | binary
   defp format_output("application/json", data), do: Json.encode(data)
   defp format_output("application/octet-stream", data), do: Protobuf.encode(data)
   defp format_output("application/protobuf", data), do: Protobuf.encode(data)

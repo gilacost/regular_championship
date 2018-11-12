@@ -2,6 +2,7 @@ alias RegularChampionship.ResultList
 alias RegularChampionship.Messages.Result, as: ResultProto
 alias RegularChampionship.Messages.ResultList, as: ResultListProto
 
+# implements specific encoding for a ResultList struct
 defimpl Api.Protobuf, for: ResultList do
   def encode(%ResultList{data: data}) do
     result_list =
