@@ -1,3 +1,4 @@
+PLEASE `source .env`
 # Derivco Technical test
 
 Implemented Requirements:
