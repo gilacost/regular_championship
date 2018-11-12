@@ -55,7 +55,7 @@ defmodule Api.Controller do
   Returns `%Conn{}`.
   """
 
-  @spec respond_not_found(%{}, String.t()) :: struct()
+  @spec respond_not_found(Plug.Conn.t(), String.t()) :: struct()
   def respond_not_found(conn, message) do
     conn
     |> put_status(Status.code(:not_found))

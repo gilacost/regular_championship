@@ -32,7 +32,6 @@ defmodule Derivco.MixProject do
     [
       {:pre_commit, "~> 0.3.4", only: [:dev]},
       {:distillery, "~> 1.0", runtime: false},
-      {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.18.0", only: [:dev], runtime: false}
     ]
   end

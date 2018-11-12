@@ -45,7 +45,7 @@ defmodule Api.Plug.ContentAccept do
   def list(), do: @accepted_content_types
 
   # gets the ip
-  @spec get_ip({:atom, list(tuple)}) :: String.t()
+  @spec get_ip({:ok, list(tuple)}) :: String.t()
   defp get_ip(
          {:ok,
           [
