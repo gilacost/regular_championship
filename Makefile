@@ -9,16 +9,11 @@ CFLAGS = -c -g -D $(INSTANCES)
 help: ## This help.
 		@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-source_env: ## sources reqired ENV to build the image with the release
-		source ./.env
-
 build: ## builds the image containing the releases
-		make source_env
-		docker-compose build --no-cache
+		source ./.env && docker-compose build --no-cache
 
 up: ## runs n containers, run it like make INSTANCES=n to instantiate n api containers
-		make source_env
-		docker-compose up --scale api=${INSTANCES}
+		source ./.env && docker-compose up --scale api=${INSTANCES}
 
 conf: ## shows docker-compose config 
 		docker-compose config
