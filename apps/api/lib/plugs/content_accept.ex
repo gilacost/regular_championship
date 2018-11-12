@@ -29,7 +29,7 @@ defmodule Api.Plug.ContentAccept do
   """
 
   def call(%Plug.Conn{} = conn, _opts) do
-    [content_type] = get_req_header(conn, "accept")
+    [content_type] = get_req_header(conn, "accept-language")
 
     if content_type in @accepted_content_types do
       assign(conn, :content_type, content_type)

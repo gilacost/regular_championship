@@ -10,7 +10,7 @@ defmodule Api.ContentAcceptTest do
       check all content_type <- StreamData.string(:alphanumeric) do
         %Conn{assigns: assigns} =
           Test.conn(:get, "/")
-          |> Conn.put_req_header("accept", content_type)
+          |> Conn.put_req_header("accept-language", content_type)
           |> ContentAccept.call([])
 
         assert assigns[:invalid_content_type]
@@ -23,7 +23,7 @@ defmodule Api.ContentAcceptTest do
       check all content_type <- content_types() do
         %Conn{assigns: assigns} =
           Test.conn(:get, "/")
-          |> Conn.put_req_header("accept", content_type)
+          |> Conn.put_req_header("accept-language", content_type)
           |> ContentAccept.call([])
 
         assert assigns[:content_type]
