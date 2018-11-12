@@ -1,8 +1,6 @@
 defmodule Derivco.MixProject do
   use Mix.Project
 
-  # source_url: "https://github.com/USER/PROJECT",
-  # homepage_url: "http://YOUR_PROJECT_HOMEPAGE",
   def project do
     [
       app: :derivco,
@@ -14,9 +12,13 @@ defmodule Derivco.MixProject do
       name: "Derivco",
       docs: [
         # The main page in the docs
-        main: "Api.Controller",
+        main: "readme",
         logo: "logo.png",
-        extras: ["README.md"]
+        extras: ["README.md"],
+        groups_for_modules: [
+          Api: ~r"Api",
+          "Regular Championship": ~r"RegularChampionship"
+        ]
       ]
     ]
   end

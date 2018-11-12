@@ -1,4 +1,5 @@
 defmodule Api.Router do
+  @moduledoc false
   alias Api.{Plug.ContentAccept, Plug.EncodeSend, Controller}
   use Plug.Router
 
@@ -19,7 +20,7 @@ defmodule Api.Router do
   end
 
   match _ do
-    Controller.respond_not_found(conn, "Oops")
+    Controller.respond_not_found(conn, "Route not found")
   end
 
   plug(EncodeSend)

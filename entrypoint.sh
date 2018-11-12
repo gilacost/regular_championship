@@ -1,13 +1,10 @@
 #!/bin/ash
 
+set -x
 set -o errexit
 set -o pipefail
 set -o nounset
 set -o xtrace
 
-
-echo "Running /opt/app/bin/start_server foreground"
-exec "$@"
-
-
-
+echo "Running $@"
+exec "$@" > /dev/stdout

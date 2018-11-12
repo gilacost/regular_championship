@@ -30,7 +30,7 @@ defmodule Api.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:cowboy, "~> 2.5"},
       {:plug, "~> 1.7"},
-      {:logger_file_backend, "~> 0.0.10"}
+      {:stream_data, "~> 0.3", only: :test}
     ]
   end
 end
