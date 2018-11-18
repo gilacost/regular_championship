@@ -8,8 +8,8 @@ defmodule Derivco.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: [plt_add_deps: :transitive],
-      version: "0.1.0",
       name: "Derivco",
+      version: "0.1.0",
       docs: [
         # The main page in the docs
         main: "readme",
@@ -32,7 +32,7 @@ defmodule Derivco.MixProject do
     [
       {:pre_commit, "~> 0.3.4", only: [:dev]},
       {:distillery, "~> 1.0", runtime: false},
-      {:ex_doc, "~> 0.18.0", only: [:dev], runtime: false}
+      {:ex_doc, "~> 0.19.0", only: [:dev], runtime: false}
     ]
   end
 end

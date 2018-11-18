@@ -1,4 +1,4 @@
-FROM elixir:1.6-alpine as builder
+FROM elixir:1.7-alpine as builder
 
 ARG API_VSN
 ARG REGULAR_CHAMPIONSHIP_VSN

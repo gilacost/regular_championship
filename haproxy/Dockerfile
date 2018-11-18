@@ -1,3 +1,3 @@
-FROM haproxy:1.7-alpine
+FROM haproxy:1.8-alpine
 COPY ./haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
 

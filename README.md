@@ -204,3 +204,8 @@ docs: ## generate docs and opens the index.html
 * there is a `.tool_versions` file in the umbrella root path, run asdf install to ensure use the same versions defined at an application level.
 
 Enjoy!
+
+AFTER DELIVERY
+
+ * update erlang and elixir versions
+ * tried to load balance using round robin, but current version alwais sticks to first ip returned by the DNS server, consul?

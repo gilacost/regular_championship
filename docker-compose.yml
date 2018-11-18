@@ -13,14 +13,12 @@ services:
         networks:
             - backend
     proxy:
+        depends_on:
+-            - api
         build: ./haproxy
         networks:
             - backend
-        depends_on:
-            - api
         ports:
             - "80:80"
-        links:
-            - api:api
 networks:
     backend:
