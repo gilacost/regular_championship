@@ -209,3 +209,6 @@ AFTER DELIVERY
 
  * update erlang and elixir versions
  * tried to load balance using round robin, but current version alwais sticks to first ip returned by the DNS server, consul?
+
+TODO:
+ auth, consul, docs, connect nodes, mini-kube, pagination
