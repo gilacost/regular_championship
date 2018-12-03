@@ -214,9 +214,10 @@ AFTER DELIVERY
  * change controller test data_definition does not make sense, replaced with response data
  * make respond ok public and fix type spec
  * use scrivener.list for paginate results
+ * log HOST:PORT serving the application
 
 TODO:
- auth, consul, docs, connect nodes, mini-kube, prometheus + grafana, change data to be items, show ip and host serving
+ auth, consul, docs, connect nodes, mini-kube, prometheus + grafana
 
 
 curl --header "Content-Type: application/json" \

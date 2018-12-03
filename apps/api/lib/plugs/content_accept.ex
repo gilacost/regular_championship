@@ -4,6 +4,7 @@ defmodule Api.Plug.ContentAccept do
   It also logs the ip of the server that will be send the final response.
   """
   import Plug.Conn, only: [get_req_header: 2, assign: 3]
+
   require Logger
 
   @accepted_content_types [

@@ -3,17 +3,21 @@ defmodule Api.Application do
   # for more information on OTP Applications
   @moduledoc false
 
+  require Logger
   use Application
 
   def start(_type, _args) do
+    port = Application.get_env(:api, :port)
     # List all child processes to be supervised
     children = [
       Plug.Cowboy.child_spec(
         scheme: :http,
         plug: Api.Router,
-        options: [port: Application.get_env(:api, :port)]
+        options: [port: port]
       )
     ]
+
+    Logger.info("Listening on http://localhost:#{port}")
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
