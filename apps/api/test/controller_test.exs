@@ -68,6 +68,6 @@ defmodule Api.ControllerTest do
     ]
   end
 
-  defp conn(%{} = params), do: %Plug.Conn{params: params}
-  defp conn(), do: %Plug.Conn{}
+  defp conn(%{} = params), do: %Conn{params: params}
+  defp conn(), do: %Conn{}
 end
