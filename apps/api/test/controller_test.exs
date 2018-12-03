@@ -15,37 +15,49 @@ defmodule Api.ControllerTest do
 
   describe "league_season/1" do
     test "responds a league season pair list with ok status" do
-      [code, data_definition] =
+      [code, response_data] =
         conn()
         |> Api.Controller.league_season()
         |> code_and_resp_data()
 
       assert code == 200
-      assert %LeagueSeasonPairList{} = data_definition
+      assert %LeagueSeasonPairList{} = response_data
     end
   end
 
   describe "results/1" do
     test "responds a result list for an existing league season pair" do
-      [code, data_definition] =
+      [code, response_data] =
         @valid_params
         |> conn()
         |> Api.Controller.results()
         |> code_and_resp_data()
 
       assert code == 200
-      assert %ResultList{} = data_definition
+      assert %ResultList{} = response_data
     end
 
     test "responds not found for a non existing league season pair" do
-      [code, data_definition] =
+      [code, response_data] =
         @invalid_params
         |> conn()
         |> Api.Controller.results()
         |> code_and_resp_data()
 
       assert code == 404
-      assert %NotFound{} = data_definition
+      assert %NotFound{} = response_data
+    end
+
+    test "default response data contains n items specified in config file" do
+      page_size = Application.get_env(:api, :page_size)
+
+      [_code, response_data] =
+        @valid_params
+        |> conn()
+        |> Api.Controller.results()
+        |> code_and_resp_data()
+
+      assert page_size = length(response_data)
     end
   end
 
