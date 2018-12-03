@@ -15,8 +15,5 @@ use Mix.Config
 #       format: "$date $time [$level] $metadata$message\n",
 #       metadata: [:user_id]
 #
-config :pre_commit,
-  commnads: ["test", "format"],
-  verbose: true
 
 import_config "../apps/*/config/config.exs"

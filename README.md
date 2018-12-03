@@ -209,9 +209,10 @@ AFTER DELIVERY
 
  * update erlang and elixir versions
  * tried to load balance using round robin, but current version alwais sticks to first ip returned by the DNS server, consul?
+ * change app.put in conf file create a test conf file and use config function.
 
 TODO:
- auth, consul, docs, connect nodes, mini-kube, pagination
+ auth, consul, docs, connect nodes, mini-kube, pagination, prometheus + grafana, test wrong content-type
 
 11:06:21.410 [error] #PID<0.1114.0> running Api.Router (connection #PID<0.1113.0>, stream id 1) terminated
 api_2    | Server: localhost:80 (http)
