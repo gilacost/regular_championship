@@ -7,7 +7,6 @@ use Mix.Config
 # they all use the same configuration. While one could
 # configure all applications here, we prefer to delegate
 # back to each application for organization purposes.
-import_config "../apps/*/config/config.exs"
 
 # Sample configuration (overrides the imported configuration above):
 #
@@ -16,5 +15,8 @@ import_config "../apps/*/config/config.exs"
 #       format: "$date $time [$level] $metadata$message\n",
 #       metadata: [:user_id]
 #
-Application.put_env(:pre_commit, :commands, ["test", "format"])
-Application.put_env(:pre_commit, :verbose, true)
+config :pre_commit,
+  commnads: ["test", "format"],
+  verbose: true
+
+import_config "../apps/*/config/config.exs"
