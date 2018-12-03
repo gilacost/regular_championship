@@ -1,6 +1,6 @@
 defmodule Api.Plug.ContentAccept do
   @moduledoc """
-  This module validates the content type header sent by the clien is allowed.
+  This module validates the content type header sent by the client is allowed.
   It also logs the ip of the server that will be send the final response.
   """
   import Plug.Conn, only: [get_req_header: 2, assign: 3]
@@ -18,7 +18,8 @@ defmodule Api.Plug.ContentAccept do
 
   Logs the node ip.
   if the content-type header sent is in `@accepted_content_types` assigns a
-  :valid_content_type, if not assigns an :invalid_content_type.
+  :valid_content_type, if content type is not set or is not valid assigns
+  an :invalid_content_type.
 
   Returns: `Plug.Conn`
   """
@@ -29,7 +30,14 @@ defmodule Api.Plug.ContentAccept do
       Logger.info("Request served by node with ip #{ip}")
     end
 
-    [content_type] = get_req_header(conn, "content-type")
+    content_type =
+      case get_req_header(conn, "content-type") do
+        [content_type] ->
+          content_type
+
+        _ ->
+          "content type not set"
+      end
 
     if content_type in @accepted_content_types do
       assign(conn, :content_type, content_type)
