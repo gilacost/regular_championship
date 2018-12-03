@@ -9,7 +9,7 @@ defmodule Derivco.MixProject do
       deps: deps(),
       dialyzer: [plt_add_deps: :transitive],
       name: "Derivco",
-      version: "0.1.0",
+      version: System.get_env("DERIVCO_VSN"),
       docs: [
         # The main page in the docs
         main: "readme",

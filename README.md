@@ -212,3 +212,26 @@ AFTER DELIVERY
 
 TODO:
  auth, consul, docs, connect nodes, mini-kube, pagination
+
+11:06:21.410 [error] #PID<0.1114.0> running Api.Router (connection #PID<0.1113.0>, stream id 1) terminated
+api_2    | Server: localhost:80 (http)
+api_2    | Request: GET /
+api_2    | ** (exit) an exception was raised:
+api_2    |     ** (MatchError) no match of right hand side value: []
+api_2    |         (api) lib/plugs/content_accept.ex:32: Api.Plug.ContentAccept.call/2
+api_2    |         (api) lib/api/router.ex:1: Api.Router.plug_builder_call/2
+api_2    |         (plug_cowboy) lib/plug/cowboy/handler.ex:12: Plug.Cowboy.Handler.init/2
+api_2    |         (cowboy) /opt/app/deps/cowboy/src/cowboy_handler.erl:41: :cowboy_handler.execute/2
+api_2    |         (cowboy) /opt/app/deps/cowboy/src/cowboy_stream_h.erl:293: :cowboy_stream_h.execute/3
+api_2    |         (cowboy) /opt/app/deps/cowboy/src/cowboy_stream_h.erl:271: :cowboy_stream_h.request_process/3
+api_2    |         (stdlib) proc_lib.erl:249: :proc_lib.init_p_do_apply/3
+
+
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"username":"xyz","password":"xyz"}' \
+  http://localhost:3000/api/login
+curl --header "Content-Type: application/json" \
+  --request GET \
+  --data '{"username":"xyz","password":"xyz"}' \
+  http://localhost/league-season
