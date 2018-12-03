@@ -1,5 +1,9 @@
   message ResultList {
     repeated Result data = 1;
+    required uint32 page_number = 2;
+    required uint32 page_size = 3;
+    required uint32 total_entries = 4;
+    required uint32 total_pages = 5;
   }
   message Result {
     required uint32 id = 1;
