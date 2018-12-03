@@ -212,9 +212,11 @@ AFTER DELIVERY
  * change app.put in conf file create a test conf file and use config function.
  * if content type is not set an exception is thrown, test that and handle it in the plug ContentAccept
  * change controller test data_definition does not make sense, replaced with response data
+ * make respond ok public and fix type spec
+ * use scrivener.list for paginate results
 
 TODO:
- auth, consul, docs, connect nodes, mini-kube, pagination, prometheus + grafana,
+ auth, consul, docs, connect nodes, mini-kube, prometheus + grafana, change data to be items, show ip and host serving
 
 
 curl --header "Content-Type: application/json" \

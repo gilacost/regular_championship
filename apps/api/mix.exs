@@ -27,7 +27,7 @@ defmodule Api.MixProject do
   defp deps do
     [
       {:poison, "~> 3.0"},
-      {:scrivener, "~> 2.5"},
+      {:scrivener_list, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:cowboy, "~> 2.5"},
       {:plug, "~> 1.7"},

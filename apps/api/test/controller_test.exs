@@ -57,7 +57,7 @@ defmodule Api.ControllerTest do
         |> Api.Controller.results()
         |> code_and_resp_data()
 
-      assert page_size = length(response_data)
+      assert page_size == length(response_data.data.entries)
     end
   end
 
