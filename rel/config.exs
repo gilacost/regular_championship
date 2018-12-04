@@ -44,7 +44,8 @@ end
 # will be used by default
 
 release :derivco do
-  set(version: System.get_env("API_VSN"))
+  set(version: System.get_env("DERIVCO_VSN"))
+  set(vm_args: "rel/vm.args")
 
   set(
     applications: [
