@@ -11,6 +11,9 @@ defmodule RegularChampionship.Repo do
 
   @doc false
   def start_link() do
+    # [node|Node.list]
+    # Node.connect :'two@192.168.0.103'
+    # Node.ping :'two@192.168.0.103'
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
