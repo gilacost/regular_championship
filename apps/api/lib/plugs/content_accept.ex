@@ -27,8 +27,7 @@ defmodule Api.Plug.ContentAccept do
 
   def call(%Plug.Conn{} = conn, _opts) do
     if Application.get_env(:api, :env) == :prod do
-      ip = get_ip(:inet.getif())
-      Logger.info("Request served by node with ip #{ip}")
+      log_ip()
     end
 
     content_type =
@@ -52,6 +51,14 @@ defmodule Api.Plug.ContentAccept do
   """
   @spec list() :: [String.t()]
   def list(), do: @accepted_content_types
+
+  @doc """
+  Logs the ip.
+  """
+  def log_ip() do
+    ip = get_ip(:inet.getif())
+    Logger.info("Request served by node with ip #{ip}")
+  end
 
   # gets the ip
   @spec get_ip({:ok, list(tuple)}) :: String.t()

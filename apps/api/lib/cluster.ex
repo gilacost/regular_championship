@@ -14,16 +14,13 @@ defmodule Api.Cluster do
     reconnect_interval = 6 * 1000
 
     send(self(), :connect)
-    {:ok, {String.to_atom(service_name), "api", reconnect_interval}}
-    end
+    {:ok, {:api, reconnect_interval}}
   end
 
   @impl true
   @doc false
-  def handle_info(:connect, {service_name, app_name, reconnect_interval} = state) do
-    IO.inspect("connect")
-
-    case :inet_tcp.getaddrs(service_name) do
+  def handle_info(:connect, {app_name, reconnect_interval} = state) do
+    case :inet_tcp.getaddrs(app_name) do
       {:ok, ip_list} ->
         ip_list
         |> Enum.map(fn {a, b, c, d} -> :"#{app_name}@#{a}.#{b}.#{c}.#{d}" end)
@@ -31,8 +28,10 @@ defmodule Api.Cluster do
         |> Enum.map(&Node.connect/1)
 
       {:error, reason} ->
-        IO.puts("Cannot resolve #{inspect(service_name)}: #{inspect(reason)}")
+        IO.puts("Cannot resolve #{inspect(app_name)}: #{inspect(reason)}")
     end
+
+    IO.inspect(Node.list(), label: "nodes")
 
     Process.send_after(self(), :connect, reconnect_interval)
     {:noreply, state}

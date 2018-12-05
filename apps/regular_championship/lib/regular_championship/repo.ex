@@ -6,15 +6,13 @@ defmodule RegularChampionship.Repo do
 
   use GenServer
   alias RegularChampionship.{Result, ResultList, LeagueSeasonPair, LeagueSeasonPairList}
+  alias Api.Plug.ContentAccept
 
   @csv Application.get_env(:regular_championship, :csv) |> File.stream!()
 
   @doc false
   def start_link() do
-    # [node|Node.list]
-    # Node.connect :'two@192.168.0.103'
-    # Node.ping :'two@192.168.0.103'
-    GenServer.start_link(__MODULE__, [], name: __MODULE__)
+    GenServer.start_link(__MODULE__, name: {:global, :repo})
   end
 
   @doc """
@@ -59,6 +57,7 @@ defmodule RegularChampionship.Repo do
 
   @spec results(division(), season()) :: list(match())
   def results(division, season) do
+    ContentAccept.log_ip()
     GenServer.call(__MODULE__, {:results, division, season})
   end
 
@@ -82,14 +81,15 @@ defmodule RegularChampionship.Repo do
   """
   @spec league_season_pairs() :: list(list(String.t()))
   def league_season_pairs() do
+    ContentAccept.log_ip()
     GenServer.call(__MODULE__, :league_season_pairs)
   end
 
-  # Server(callbacks)
+  # Server(callbacks))
 
   @doc false
   @impl true
-  def handle_call({:results, division, season}, _, struct_list) do
+  def handle_call({:results, division, season}, _from, struct_list) do
     league_season_pair =
       Enum.filter(struct_list, fn
         %Result{div: d, season: s} ->
@@ -106,7 +106,7 @@ defmodule RegularChampionship.Repo do
 
   @doc false
   @impl true
-  def handle_call(:league_season_pairs, _, struct_list) do
+  def handle_call(:league_season_pairs, _from, struct_list) do
     league_season_pairs =
       struct_list
       |> List.pop_at(0)
