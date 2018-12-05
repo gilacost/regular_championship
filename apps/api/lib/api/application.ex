@@ -14,7 +14,8 @@ defmodule Api.Application do
         scheme: :http,
         plug: Api.Router,
         options: [port: port]
-      )
+      ),
+      {Api.Cluster, []}
     ]
 
     Logger.info("Listening on http://localhost:#{port}")
