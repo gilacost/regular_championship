@@ -5,14 +5,27 @@ defmodule RegularChampionship.Repo do
   """
 
   use GenServer
+
+  require Logger
+
   alias RegularChampionship.{Result, ResultList, LeagueSeasonPair, LeagueSeasonPairList}
   alias Api.Plug.ContentAccept
 
   @csv Application.get_env(:regular_championship, :csv) |> File.stream!()
 
   @doc false
-  def start_link() do
-    GenServer.start_link(__MODULE__, name: {:global, :repo})
+  def start_link(_opts) do
+    IO.puts("start_link on #{node()}")
+
+    case GenServer.start_link(__MODULE__, %{}, name: {:global, __MODULE__}) do
+      {:ok, pid} ->
+        Logger.info("---- #{__MODULE__} repo worker started")
+        {:ok, pid}
+
+      {:error, {:already_started, pid}} ->
+        Logger.info("---- #{__MODULE__} repo worker already running")
+        {:ok, pid}
+    end
   end
 
   @doc """
@@ -58,7 +71,11 @@ defmodule RegularChampionship.Repo do
   @spec results(division(), season()) :: list(match())
   def results(division, season) do
     ContentAccept.log_ip()
-    GenServer.call(__MODULE__, {:results, division, season})
+
+    __MODULE__
+    |> :global.whereis_name()
+    |> IO.inspect(label: "served by:")
+    |> GenServer.call({:results, division, season})
   end
 
   @doc """
@@ -82,7 +99,11 @@ defmodule RegularChampionship.Repo do
   @spec league_season_pairs() :: list(list(String.t()))
   def league_season_pairs() do
     ContentAccept.log_ip()
-    GenServer.call(__MODULE__, :league_season_pairs)
+
+    __MODULE__
+    |> :global.whereis_name()
+    |> IO.inspect(label: "served by:")
+    |> GenServer.call(:league_season_pairs)
   end
 
   # Server(callbacks))

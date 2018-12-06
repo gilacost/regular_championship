@@ -26,9 +26,7 @@ defmodule Api.Plug.ContentAccept do
   """
 
   def call(%Plug.Conn{} = conn, _opts) do
-    if Application.get_env(:api, :env) == :prod do
-      log_ip()
-    end
+    log_ip()
 
     content_type =
       case get_req_header(conn, "content-type") do
@@ -56,8 +54,10 @@ defmodule Api.Plug.ContentAccept do
   Logs the ip.
   """
   def log_ip() do
-    ip = get_ip(:inet.getif())
-    Logger.info("Request served by node with ip #{ip}")
+    if Application.get_env(:api, :env) == :prod do
+      ip = get_ip(:inet.getif())
+      Logger.info("Request served by node with ip #{ip}")
+    end
   end
 
   # gets the ip

@@ -215,9 +215,10 @@ AFTER DELIVERY
  * make respond ok public and fix type spec
  * use scrivener.list for paginate results
  * log HOST:PORT serving the application
+ * connect nodes for being able to register the repo genserver globally as a singleton
 
 TODO:
- auth, consul, docs, connect nodes, mini-kube, prometheus + grafana
+ auth, consul, docs, mini-kube, prometheus + grafana
 
 
 curl --header "Content-Type: application/json" \

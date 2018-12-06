@@ -9,15 +9,12 @@ defmodule RegularChampionship.Application do
   """
   use Application
 
-  def start(_type, _args) do
-    import Supervisor.Spec, warn: false
+  alias RegularChampionship.{Cluster, Repo}
 
-    Supervisor.start_link(
-      [
-        supervisor(RegularChampionship.Repo, [], name: RegularChampionship.Repo)
-      ],
-      strategy: :one_for_one,
-      name: RegularChampionship.Supervisor
-    )
+  def start(_type, _args) do
+    Supervisor.start_link(children(:all), opts())
   end
+
+  defp children(:all), do: [{Cluster, []}, {Repo, []}]
+  defp opts(), do: [strategy: :one_for_one, name: RegularChampionship.Supervisor]
 end
