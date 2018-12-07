@@ -20,12 +20,12 @@ use Mix.Config
 #
 config :api,
   port:
-    Api.Helpers.get_env_with_default("PORT", "8080")
+    "PORT"
+    |> Api.Helpers.get_env_with_default("8080")
     |> Integer.parse()
-    |> elem(0)
-    |> IO.inspect(label: "port"),
+    |> elem(0),
   env: :dev,
   hosts:
-    Api.Helpers.get_env_with_default("HOSTS", "one")
+    "HOSTS"
+    |> Api.Helpers.get_env_with_default("one")
     |> String.split(",")
-    |> IO.inspect(label: "hosts")

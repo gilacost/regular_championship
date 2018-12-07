@@ -9,6 +9,7 @@ defmodule RegularChampionship.Repo do
   require Logger
 
   alias RegularChampionship.{Result, ResultList, LeagueSeasonPair, LeagueSeasonPairList}
+
   alias Api.Plug.ContentAccept
 
   @csv Application.get_env(:regular_championship, :csv) |> File.stream!()
