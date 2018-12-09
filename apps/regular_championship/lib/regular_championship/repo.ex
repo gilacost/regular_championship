@@ -10,8 +10,6 @@ defmodule RegularChampionship.Repo do
 
   alias RegularChampionship.{Result, ResultList, LeagueSeasonPair, LeagueSeasonPairList}
 
-  alias Api.Plugs.ContentAccept
-
   @csv Application.get_env(:regular_championship, :csv) |> File.stream!()
 
   @doc false
@@ -71,7 +69,7 @@ defmodule RegularChampionship.Repo do
 
   @spec results(division(), season()) :: list(match())
   def results(division, season) do
-    ContentAccept.log_ip()
+    log_ip()
 
     __MODULE__
     |> :global.whereis_name()
@@ -98,7 +96,7 @@ defmodule RegularChampionship.Repo do
   """
   @spec league_season_pairs() :: list(list(String.t()))
   def league_season_pairs() do
-    ContentAccept.log_ip()
+    log_ip()
 
     __MODULE__
     |> :global.whereis_name()
@@ -139,4 +137,23 @@ defmodule RegularChampionship.Repo do
 
     {:reply, league_season_pairs_list, struct_list}
   end
+
+  # Logs the ip.
+  defp log_ip() do
+    if Application.get_env(:api, :env) == :prod do
+      ip = get_ip(:inet.getif())
+      Logger.info("Request served by node with ip #{ip}")
+    end
+  end
+
+  # gets the ip
+  @spec get_ip({:ok, list(tuple)}) :: String.t()
+  defp get_ip(
+         {:ok,
+          [
+            {ip, _, _},
+            {_, _, _}
+          ]}
+       ),
+       do: inspect(ip)
 end

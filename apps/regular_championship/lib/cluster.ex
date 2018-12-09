@@ -32,7 +32,6 @@ defmodule RegularChampionship.Cluster do
         IO.puts("Cannot resolve #{inspect(app_name)}: #{inspect(reason)}")
     end
 
-    IO.inspect(Node.list(), label: "nodes")
     monitor_repo()
 
     Process.send_after(self(), :connect, reconnect_interval)
@@ -63,7 +62,8 @@ defmodule RegularChampionship.Cluster do
         Repo.start_link([])
 
       pid ->
-        IO.inspect(pid)
+        # IO.inspect(pid)
+        nil
     end
   end
 end
