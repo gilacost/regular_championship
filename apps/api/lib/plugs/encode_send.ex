@@ -1,4 +1,4 @@
-defmodule Api.Plug.EncodeSend do
+defmodule Api.Plugs.EncodeSend do
   @moduledoc """
   This is the final pipeline in ther router. It has the responsability
   of formatting the output, putting the response type header adn sending
@@ -7,7 +7,7 @@ defmodule Api.Plug.EncodeSend do
   The output can be "application/json", "application/octet-stream",
   "application/protobuf" or "text/plain"
   """
-  alias Api.{Protobuf, Json, Plug.ContentAccept}
+  alias Api.{Protobuf, Json, Plugs.ContentAccept}
   alias Plug.Conn.Status
   import Plug.Conn, only: [put_resp_content_type: 2, send_resp: 3]
 

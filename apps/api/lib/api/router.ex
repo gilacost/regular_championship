@@ -1,6 +1,6 @@
 defmodule Api.Router do
   @moduledoc false
-  alias Api.{Plug.ContentAccept, Plug.EncodeSend, Controller}
+  alias Api.{Plugs.ContentAccept, Plugs.EncodeSend, Controller}
   use Plug.Router
 
   if Mix.env() == :dev do

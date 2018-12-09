@@ -1,4 +1,4 @@
-defmodule Api.Plug.ContentAccept do
+defmodule Api.Plugs.ContentAccept do
   @moduledoc """
   This module validates the content type header sent by the client is allowed.
   It also logs the ip of the server that will be send the final response.

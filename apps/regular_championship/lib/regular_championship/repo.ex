@@ -10,7 +10,7 @@ defmodule RegularChampionship.Repo do
 
   alias RegularChampionship.{Result, ResultList, LeagueSeasonPair, LeagueSeasonPairList}
 
-  alias Api.Plug.ContentAccept
+  alias Api.Plugs.ContentAccept
 
   @csv Application.get_env(:regular_championship, :csv) |> File.stream!()
 
@@ -75,7 +75,6 @@ defmodule RegularChampionship.Repo do
 
     __MODULE__
     |> :global.whereis_name()
-    |> IO.inspect(label: "served by:")
     |> GenServer.call({:results, division, season})
   end
 
@@ -103,7 +102,6 @@ defmodule RegularChampionship.Repo do
 
     __MODULE__
     |> :global.whereis_name()
-    |> IO.inspect(label: "served by:")
     |> GenServer.call(:league_season_pairs)
   end
 

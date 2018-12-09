@@ -8,6 +8,10 @@ services:
                 API_VSN: ${API_VSN}
                 REGULAR_CHAMPIONSHIP_VSN: ${REGULAR_CHAMPIONSHIP_VSN}
                 DERIVCO_VSN: ${DERIVCO_VSN}
+            # environment:
+            #     API_VSN: ${API_VSN}
+            #     REGULAR_CHAMPIONSHIP_VSN: ${REGULAR_CHAMPIONSHIP_VSN}
+            #     DERIVCO_VSN: ${DERIVCO_VSN}
         expose:
             - "80"
         command: "/opt/app/bin/start_server foreground"

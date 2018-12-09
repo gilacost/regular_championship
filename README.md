@@ -218,6 +218,7 @@ AFTER DELIVERY
  * connect nodes for being able to register the repo genserver globally as a singleton
 
 TODO:
+ setup the genserver properly
  auth, consul, docs, mini-kube, prometheus + grafana
 
 
