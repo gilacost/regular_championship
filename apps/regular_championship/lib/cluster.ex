@@ -62,7 +62,7 @@ defmodule RegularChampionship.Cluster do
         Repo.start_link([])
 
       pid ->
-        # IO.inspect(pid)
+        IO.inspect(pid)
         nil
     end
   end

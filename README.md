@@ -21,7 +21,7 @@ Once a release has been generated it is copied from the build mentioned above in
 This docker file also contains an entrypoint. This has been added to be able view the logs produceby the application on the terminal wher `docker-compose up` was run. To do this the entrypoint executes the release and then redirects the output to ```/stdeout```.
 
 ```bash
-echo "Running $@" 
+echo "Running $@"
 exec "$@" > /dev/stdout
 ```
 
@@ -31,7 +31,7 @@ This docker file is simplier. It extends from `haproxy:1.7-alpine`, so it is als
 
 ### haproxy configuration
 
-The global and dafults configuration has been copied from the [examples](https://cbonte.github.io/haproxy-dconv/1.7/configuration.html#2.5) section in the docs. 
+The global and dafults configuration has been copied from the [examples](https://cbonte.github.io/haproxy-dconv/1.7/configuration.html#2.5) section in the docs.
 
 There is an special configuration set in this file to be able to run docker-compose with the --scale parameter. This configuration defines a dns resolver that points to `127.0.0.11:53` which the ip where docker dns server is listening to.
 
@@ -171,21 +171,21 @@ CFLAGS = -c -g -D $(INSTANCES)
 help: ## This help.
 	 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-source_env: ## sources reqired ENV to build the image with the release 
+source_env: ## sources reqired ENV to build the image with the release
 		source ./.env
 
 build: ## builds the image containing the release
 		make source_env
 		docker-compose build --no-cache
 
-up: ## runs n containers, run it like make INSTANCES=n to instantiate n api containers 
+up: ## runs n containers, run it like make INSTANCES=n to instantiate n api containers
 		make source_env
 		docker-compose up --scale api=${INSTANCES}
 
-conf: ## shows docker-compose config 
+conf: ## shows docker-compose config
 		docker-compose config
 
-down: ## stops and removes the containers 
+down: ## stops and removes the containers
 		docker-compose down
 
 rmi: ## removes all generated doker images
@@ -216,6 +216,8 @@ AFTER DELIVERY
  * use scrivener.list for paginate results
  * log HOST:PORT serving the application
  * connect nodes for being able to register the repo genserver globally as a singleton
+
+PORT=8081 HOSTS=one,two,three iex --sname two -S mix
 
 TODO:
  setup the genserver properly
